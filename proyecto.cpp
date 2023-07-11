@@ -44,6 +44,10 @@ void leerUsuario(){
     mostrarDatos();
 }
 
+void ingresoPin(){
+
+
+}
 
 
 int main()
