@@ -26,6 +26,10 @@ void guardarArchivo(){
     //no olvidar cerrararchivo
 }
 
+//funcion global que se le pase x parametro loq ue se quiere mostrar.
+void mostrarDatos(){
+
+}
 
 int main()
 {
