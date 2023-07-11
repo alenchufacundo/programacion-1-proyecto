@@ -38,6 +38,13 @@ void mostrarDatos(){
 
 }
 
+void leerUsuario(){
+    leerArchivo();
+    mostrarDatos();
+}
+
+
+
 int main()
 {
     mostrarMenu();
