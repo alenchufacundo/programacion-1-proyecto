@@ -1,6 +1,13 @@
 #include <iostream>
 using namespace std;
 
+//struct
+struct Usuario{
+    string cbu;
+    string nombre;
+    string apellido;
+};
+
 
 // menu
 void mostrarMenu(){
