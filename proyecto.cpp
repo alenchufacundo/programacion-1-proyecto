@@ -2,13 +2,34 @@
 using namespace std;
 
 
-int main(){
+// menu
+void mostrarMenu(){
 
-    //hola que tal
-    cout << "esto es el proyecto final" << endl;
+    cout << "Mostrar Menu" << endl;
+    
+}
+
+// funciones archivo
+
+void leerArchivo(){
+    //abrirarchivo
+
+}
+
+void escribirArchivo(){
+
+}
+
+void guardarArchivo(){
 
 
+    //no olvidar cerrararchivo
+}
 
+
+int main()
+{
+    mostrarMenu();
 
     return 0;
 }
