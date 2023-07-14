@@ -1,19 +1,43 @@
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <fstream>
+#define NOMBRE_ARCHIVO
 using namespace std;
 
-//struct
-struct Usuario{
+// encontrar cbu dentro de archivo
+bool cbuEncontrado(string cbu, bool& cbuExiste){
+
+}
+
+// inicio de seccion
+void inicioSeccion(){
+    bool cbuExiste = false;
     string cbu;
-    string nombre;
-    string apellido;
-};
+    string pin;
+    
+    do{
+        cout << "Ingrese el CBU del usuario";
+        cin >> cbu;
+        cbuEncontrado(archivo,cbu,cbuExiste); //archivo a agregar
+    } while(cbuExiste =! false);
 
+    cout << " " << endl;
+    cout << "Ingrese el PIN del usuario";
+    cin >> pin;
 
+}
 // menu
 void mostrarMenu(){
 
-    cout << "Mostrar Menu" << endl;
+    cout << "OPCIONES" << endl;
+    cout << " " << endl;
+    cout << "1- Balance" << endl;
+    cout << "2- Deposito" << endl;
+    cout << "3- Retiro" << endl;
+    cout << "4- Tranferir" << endl;
+    cout << "5- Salir" << endl;
+    cout << "----------------" << endl;
     
 }
 
