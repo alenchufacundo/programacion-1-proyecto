@@ -57,7 +57,6 @@ void mostrarMenu()
 // fijate si podes mirar lo que hice abajo, lo pense de estar forma con la funcion de leerUsuario, no se como lo habias pensado vos.
 //  funciones archivo
 
-
 string pedirCbu()
 {
     string cbu;
@@ -77,6 +76,7 @@ string pedirPin()
     return pin;
 }
 
+//devuelve objeto archivo.
 ifstream leerArchivo()
 {
     // abrirarchivo
@@ -90,6 +90,7 @@ ifstream leerArchivo()
     return archivo;
 }
 
+//aun no implementada
 void escribirArchivo(string parametros)
 {
     leerArchivo();
@@ -101,8 +102,8 @@ void escribirArchivo(string parametros)
 }
 
 
-// se le pasa el cbu
-void leerUsuario()
+//devuelve objeto/struct usuario.
+Usuario leerUsuario()
 {
     ifstream archivo = leerArchivo();
     string linea;
@@ -110,11 +111,12 @@ void leerUsuario()
     while (getline(archivo, linea))
     {
         stringstream stream(linea);
-        string nombre, apellido, cbu, pin;
+        string nombre, apellido, cbu, pin, balance;
         getline(stream, nombre, delimitador);
         getline(stream, apellido, delimitador);
         getline(stream, cbu, delimitador);
         getline(stream, pin, delimitador);
+        getline(stream, balance, delimitador);
 
         string cbuPedido = pedirCbu();
         string pinPedido = pedirPin();
@@ -128,25 +130,45 @@ void leerUsuario()
             usuario.nombre = nombre;
             usuario.apellido = apellido;
             usuario.cbu = cbu;
+            // convierte el string balance a double.
+            stringstream balanceStream(balance);
+            balanceStream >> usuario.balance;
 
             // mostrar info
+            cout << "Bienvenido" << endl;
             cout << "Nombre: " << usuario.nombre << endl;
             cout << "Apellido: " << usuario.apellido << endl;
             cout << "CBU: " << usuario.cbu << endl;
 
-            return;
+            return usuario;
         }
     }
 
     cout << "No se encontro un usuario con ese cbu o el pin es incorrecto" << endl;
 
     archivo.close();
+    //devuelve vacio
+    return Usuario {};
 }
+
 
 int main()
 {
-    leerUsuario();
+    Usuario nuevoUsuario = leerUsuario();
     mostrarMenu();
+    int opcion;
+    cout << "Ingrese una opcion: ";
+    cin >> opcion;
+    switch (opcion)
+    {
+    case 1:
+        cout << "$ " << nuevoUsuario.balance << endl;
+        break;
+    
+    default:
+        cout << "Opcion incorrecta" << endl;
+        break;
+    }
 
     return 0;
 }
