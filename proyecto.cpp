@@ -2,7 +2,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#define NOMBRE_ARCHIVO
+#define NOMBRE_ARCHIVO "clientes.csv"
 using namespace std;
 
 // encontrar cbu dentro de archivo
@@ -45,10 +45,33 @@ void mostrarMenu(){
 
 void leerArchivo(){
     //abrirarchivo
+    ifstream archivo(NOMBRE_ARCHIVO);
+    
+    if(!archivo){
+        cout << "No se pudo abrir el archivo" << endl;
+        return;
+    }
+
+    string linea;
+    //descarga la primera linea;
+    getline(archivo, linea);
+
+    //lee todas las lineas y las imprime
+    while(getline(archivo, linea)){
+        cout << linea << endl;
+    }
+
+    archivo.close();
 
 }
 
-void escribirArchivo(){
+void escribirArchivo(string parametros){
+    leerArchivo();
+    ofstream archivo(NOMBRE_ARCHIVO);
+
+    archivo<< parametros << endl; 
+    
+    archivo.close()
 
 }
 
