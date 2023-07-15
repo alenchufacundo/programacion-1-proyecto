@@ -164,7 +164,10 @@ int main()
     case 1:
         cout << "$ " << nuevoUsuario.balance << endl;
         break;
-    
+    case 2:
+        //depositar();
+    case 3:
+        //retirar();
     default:
         cout << "Opcion incorrecta" << endl;
         break;
