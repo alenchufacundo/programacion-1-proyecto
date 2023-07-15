@@ -52,7 +52,6 @@ void mostrarMenu()
     cout << "----------------" << endl;
 }
 
-
 //--------------
 // fijate si podes mirar lo que hice abajo, lo pense de estar forma con la funcion de leerUsuario, no se como lo habias pensado vos.
 //  funciones archivo
@@ -76,7 +75,7 @@ string pedirPin()
     return pin;
 }
 
-//devuelve objeto archivo.
+// devuelve objeto archivo.
 ifstream leerArchivo()
 {
     // abrirarchivo
@@ -90,7 +89,23 @@ ifstream leerArchivo()
     return archivo;
 }
 
-//aun no implementada
+// depositar
+void depositar(Usuario &usuario)
+{
+    double deposito;
+    cout << "Ingrese el monto a depositar: ";
+    cin >> deposito;
+
+    usuario.balance += deposito;
+    cout << "Su nuevo balance es: " << usuario.balance << endl;
+
+    //FALTA reescribir el nuevo balance en el archivo.
+    //lee el archivo
+    ifstream archivo = leerArchivo();
+        
+}
+
+// aun no implementada
 void escribirArchivo(string parametros)
 {
     leerArchivo();
@@ -101,8 +116,7 @@ void escribirArchivo(string parametros)
     archivo.close();
 }
 
-
-//devuelve objeto/struct usuario.
+// devuelve objeto/struct usuario.
 Usuario leerUsuario()
 {
     ifstream archivo = leerArchivo();
@@ -120,7 +134,6 @@ Usuario leerUsuario()
 
         string cbuPedido = pedirCbu();
         string pinPedido = pedirPin();
-
 
         // se podria hacer una funcion que valide el cbu
         if ((cbu == cbuPedido) && (pin == pinPedido))
@@ -147,10 +160,9 @@ Usuario leerUsuario()
     cout << "No se encontro un usuario con ese cbu o el pin es incorrecto" << endl;
 
     archivo.close();
-    //devuelve vacio
-    return Usuario {};
+    // devuelve vacio
+    return Usuario{};
 }
-
 
 int main()
 {
@@ -165,9 +177,8 @@ int main()
         cout << "$ " << nuevoUsuario.balance << endl;
         break;
     case 2:
-        //depositar();
-    case 3:
-        //retirar();
+        depositar(nuevoUsuario);
+        break;
     default:
         cout << "Opcion incorrecta" << endl;
         break;
