@@ -110,12 +110,11 @@ void leerUsuario()
     while (getline(archivo, linea))
     {
         stringstream stream(linea);
-        string nombre, apellido, cbu, pin, balance;
+        string nombre, apellido, cbu, pin;
         getline(stream, nombre, delimitador);
         getline(stream, apellido, delimitador);
         getline(stream, cbu, delimitador);
         getline(stream, pin, delimitador);
-        getline(stream, balance, delimitador);
 
         string cbuPedido = pedirCbu();
         string pinPedido = pedirPin();
@@ -129,15 +128,11 @@ void leerUsuario()
             usuario.nombre = nombre;
             usuario.apellido = apellido;
             usuario.cbu = cbu;
-            // convierte el string balance a double.
-            stringstream balanceStream(balance);
-            balanceStream >> usuario.balance;
 
             // mostrar info
             cout << "Nombre: " << usuario.nombre << endl;
             cout << "Apellido: " << usuario.apellido << endl;
             cout << "CBU: " << usuario.cbu << endl;
-            cout << "Balance  : " << usuario.balance << endl;
 
             return;
         }
@@ -147,10 +142,6 @@ void leerUsuario()
 
     archivo.close();
 }
-
-
-
-
 
 int main()
 {
