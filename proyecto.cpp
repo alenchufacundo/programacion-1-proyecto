@@ -71,7 +71,7 @@ void escribirArchivo(string parametros){
 
     archivo<< parametros << endl; 
     
-    archivo.close()
+    archivo.close();
 
 }
 
