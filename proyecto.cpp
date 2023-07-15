@@ -5,30 +5,41 @@
 #define NOMBRE_ARCHIVO "clientes.csv"
 using namespace std;
 
-// encontrar cbu dentro de archivo
-bool cbuEncontrado(string cbu, bool& cbuExiste){
+struct Usuario
+{
+    string nombre;
+    string apellido;
+    string cbu;
+    double balance;
+}
 
+// encontrar cbu dentro de archivo
+bool
+cbuEncontrado(string cbu, bool &cbuExiste)
+{
 }
 
 // inicio de seccion
-void inicioSeccion(){
+void inicioSeccion()
+{
     bool cbuExiste = false;
     string cbu;
     string pin;
-    
-    do{
+
+    do
+    {
         cout << "Ingrese el CBU del usuario";
         cin >> cbu;
-        cbuEncontrado(archivo,cbu,cbuExiste); //archivo a agregar
-    } while(cbuExiste =! false);
+        cbuEncontrado(archivo, cbu, cbuExiste); // archivo a agregar
+    } while (cbuExiste = !false);
 
     cout << " " << endl;
     cout << "Ingrese el PIN del usuario";
     cin >> pin;
-
 }
 // menu
-void mostrarMenu(){
+void mostrarMenu()
+{
 
     cout << "OPCIONES" << endl;
     cout << " " << endl;
@@ -38,64 +49,79 @@ void mostrarMenu(){
     cout << "4- Tranferir" << endl;
     cout << "5- Salir" << endl;
     cout << "----------------" << endl;
-    
 }
 
 // funciones archivo
 
-void leerArchivo(){
-    //abrirarchivo
+ifstream leerArchivo()
+{
+    // abrirarchivo
     ifstream archivo(NOMBRE_ARCHIVO);
-    
-    if(!archivo){
+
+    if (!archivo)
+    {
         cout << "No se pudo abrir el archivo" << endl;
         return;
     }
 
-    string linea;
-    //descarga la primera linea;
-    getline(archivo, linea);
-
-    //lee todas las lineas y las imprime
-    while(getline(archivo, linea)){
-        cout << linea << endl;
-    }
-
-    archivo.close();
-
+    return archivo;
 }
 
-void escribirArchivo(string parametros){
+
+
+void escribirArchivo(string parametros)
+{
     leerArchivo();
     ofstream archivo(NOMBRE_ARCHIVO);
 
-    archivo<< parametros << endl; 
-    
+    archivo << parametros << endl;
+
     archivo.close();
-
 }
 
-void guardarArchivo(){
+// se le pasa el cbu
+void leerUsuario(string &cbu)
+{
+    ifstream archivo = leerArchivo();
+    string linea;
+    char delimitador = ',';
+    while (getline(archivo, linea))
+    {
+        stringstream stream(linea);
+        string nombre, apellido, cbu, balance;
+        getline(stream, nombre, delimitador);
+        getline(stream, apellido, delimitador);
+        getline(stream, cbu, delimitador);
+        getline(stream, balance, delimitador);
 
+        if (cbu == cbu)
+        {
+            // crea objecto/struct usuario
+            Usuario usuario;
+            usuario.nombre = nombre;
+            usuario.apellido = apellido;
+            usuario.cbu = cbu;
+            // convierte el string balance a double.
+            stringstream balanceStream(balance);
+            balanceStream >> usuario.balance;
 
-    //no olvidar cerrararchivo
+            // mostrar info
+            cout << "Nombre: " << usuario.nombre << endl;
+            cout << "Apellido: " << usuario.apellido << endl;
+            cout << "CBU: " << usuario.cbu << endl;
+            cout << "Balance  : " << usuario.balance << endl;
+
+            return;
+        }
+    }
+    cout << "No se encontro un usuario con ese cbu" << endl;
+
+   archivo.close();
 }
 
-//funcion global que se le pase x parametro loq ue se quiere mostrar.
-void mostrarDatos(){
-
+void ingresoPin()
+{
 }
-
-void leerUsuario(){
-    leerArchivo();
-    mostrarDatos();
-}
-
-void ingresoPin(){
-
-
-}
-
 
 int main()
 {
