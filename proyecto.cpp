@@ -10,33 +10,34 @@ struct Usuario
     string nombre;
     string apellido;
     string cbu;
-    double balance;
-}
-
-// encontrar cbu dentro de archivo
-bool
-cbuEncontrado(string cbu, bool &cbuExiste)
-{
-}
-
-// inicio de seccion
-void inicioSeccion()
-{
-    bool cbuExiste = false;
-    string cbu;
     string pin;
+    double balance;
+};
 
-    do
-    {
-        cout << "Ingrese el CBU del usuario";
-        cin >> cbu;
-        cbuEncontrado(archivo, cbu, cbuExiste); // archivo a agregar
-    } while (cbuExiste = !false);
+// // encontrar cbu dentro de archivo
+// bool cbuEncontrado(string cbu, bool &cbuExiste)
+// {
+// }
 
-    cout << " " << endl;
-    cout << "Ingrese el PIN del usuario";
-    cin >> pin;
-}
+// // inicio de seccion
+// void inicioSeccion()
+// {
+//     bool cbuExiste = false;
+//     string cbu;
+//     string pin;
+
+//     do
+//     {
+//         cout << "Ingrese el CBU del usuario";
+//         cin >> cbu;
+//         cbuEncontrado(archivo, cbu, cbuExiste); // archivo a agregar
+//     } while (cbuExiste = !false);
+
+//     cout << " " << endl;
+//     cout << "Ingrese el PIN del usuario";
+//     cin >> pin;
+// }
+
 // menu
 void mostrarMenu()
 {
@@ -51,7 +52,30 @@ void mostrarMenu()
     cout << "----------------" << endl;
 }
 
-// funciones archivo
+
+//--------------
+// fijate si podes mirar lo que hice abajo, lo pense de estar forma con la funcion de leerUsuario, no se como lo habias pensado vos.
+//  funciones archivo
+
+
+string pedirCbu()
+{
+    string cbu;
+    cout << "Ingrese su cbu: ";
+    cin >> cbu;
+
+    return cbu;
+}
+
+string pedirPin()
+{
+
+    string pin;
+    cout << "Ingrese su pin: ";
+    cin >> pin;
+
+    return pin;
+}
 
 ifstream leerArchivo()
 {
@@ -61,13 +85,10 @@ ifstream leerArchivo()
     if (!archivo)
     {
         cout << "No se pudo abrir el archivo" << endl;
-        return;
     }
 
     return archivo;
 }
-
-
 
 void escribirArchivo(string parametros)
 {
@@ -79,8 +100,9 @@ void escribirArchivo(string parametros)
     archivo.close();
 }
 
+
 // se le pasa el cbu
-void leerUsuario(string &cbu)
+void leerUsuario()
 {
     ifstream archivo = leerArchivo();
     string linea;
@@ -88,13 +110,19 @@ void leerUsuario(string &cbu)
     while (getline(archivo, linea))
     {
         stringstream stream(linea);
-        string nombre, apellido, cbu, balance;
+        string nombre, apellido, cbu, pin, balance;
         getline(stream, nombre, delimitador);
         getline(stream, apellido, delimitador);
         getline(stream, cbu, delimitador);
+        getline(stream, pin, delimitador);
         getline(stream, balance, delimitador);
 
-        if (cbu == cbu)
+        string cbuPedido = pedirCbu();
+        string pinPedido = pedirPin();
+
+
+        // se podria hacer una funcion que valide el cbu
+        if ((cbu == cbuPedido) && (pin == pinPedido))
         {
             // crea objecto/struct usuario
             Usuario usuario;
@@ -114,17 +142,19 @@ void leerUsuario(string &cbu)
             return;
         }
     }
-    cout << "No se encontro un usuario con ese cbu" << endl;
 
-   archivo.close();
+    cout << "No se encontro un usuario con ese cbu o el pin es incorrecto" << endl;
+
+    archivo.close();
 }
 
-void ingresoPin()
-{
-}
+
+
+
 
 int main()
 {
+    leerUsuario();
     mostrarMenu();
 
     return 0;
