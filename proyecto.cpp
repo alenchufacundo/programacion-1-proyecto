@@ -14,29 +14,29 @@ struct Usuario
     double balance;
 };
 
-// // encontrar cbu dentro de archivo
-// bool cbuEncontrado(string cbu, bool &cbuExiste)
-// {
-// }
+// encontrar cbu dentro de archivo
+bool cbuEncontrado(string cbu, bool &cbuExiste)
+{
+}
 
-// // inicio de seccion
-// void inicioSeccion()
-// {
-//     bool cbuExiste = false;
-//     string cbu;
-//     string pin;
+// inicio de seccion
+void inicioSeccion()
+{
+    bool cbuExiste = false;
+    string cbu;
+    string pin;
 
-//     do
-//     {
-//         cout << "Ingrese el CBU del usuario";
-//         cin >> cbu;
-//         cbuEncontrado(archivo, cbu, cbuExiste); // archivo a agregar
-//     } while (cbuExiste = !false);
+    do
+    {
+        cout << "Ingrese el CBU del usuario";
+        cin >> cbu;
+        cbuEncontrado(archivo, cbu, cbuExiste); // archivo a agregar
+    } while (cbuExiste = !false);
 
-//     cout << " " << endl;
-//     cout << "Ingrese el PIN del usuario";
-//     cin >> pin;
-// }
+    cout << " " << endl;
+    cout << "Ingrese el PIN del usuario";
+    cin >> pin;
+}
 
 // menu
 void mostrarMenu()
