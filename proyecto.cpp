@@ -73,11 +73,26 @@ void depositar(Usuario &usuario)
 
     usuario.balance += deposito;
     cout << "Su nuevo balance es: " << usuario.balance << endl;
-    
+
     //FALTA reescribir el nuevo balance en el archivo.
     //lee el archivo
     ifstream archivo = leerArchivo();
         
+}
+
+void retirar(Usuario &usuario)
+{
+    double retiro;
+    cout << "Ingrese el monto a retirar: ";
+    cin >> retiro;
+
+    usuario.balance -= retiro;
+
+    cout << "Su nuevo balance es: " << usuario.balance << endl;
+
+    //FALTA reescribir el nuevo balance en el archivo.
+    //lee archivo
+    ifstream archivo = leerArchivo();
 }
 
 // aun no implementada
@@ -153,6 +168,9 @@ int main()
         break;
     case 2:
         depositar(nuevoUsuario);
+        break;
+    case 3:
+        retirar(nuevoUsuario);
         break;
     default:
         cout << "Opcion incorrecta" << endl;
