@@ -14,30 +14,6 @@ struct Usuario
     double balance;
 };
 
-// encontrar cbu dentro de archivo
-bool cbuEncontrado(string cbu, bool &cbuExiste)
-{
-}
-
-// inicio de seccion
-void inicioSeccion()
-{
-    bool cbuExiste = false;
-    string cbu;
-    string pin;
-
-    do
-    {
-        cout << "Ingrese el CBU del usuario";
-        cin >> cbu;
-        cbuEncontrado(archivo, cbu, cbuExiste); // archivo a agregar
-    } while (cbuExiste = !false);
-
-    cout << " " << endl;
-    cout << "Ingrese el PIN del usuario";
-    cin >> pin;
-}
-
 // menu
 void mostrarMenu()
 {
@@ -67,7 +43,6 @@ string pedirCbu()
 
 string pedirPin()
 {
-
     string pin;
     cout << "Ingrese su pin: ";
     cin >> pin;
@@ -98,7 +73,7 @@ void depositar(Usuario &usuario)
 
     usuario.balance += deposito;
     cout << "Su nuevo balance es: " << usuario.balance << endl;
-
+    
     //FALTA reescribir el nuevo balance en el archivo.
     //lee el archivo
     ifstream archivo = leerArchivo();
@@ -126,9 +101,9 @@ Usuario leerUsuario()
     {
         stringstream stream(linea);
         string nombre, apellido, cbu, pin, balance;
+        getline(stream, cbu, delimitador);
         getline(stream, nombre, delimitador);
         getline(stream, apellido, delimitador);
-        getline(stream, cbu, delimitador);
         getline(stream, pin, delimitador);
         getline(stream, balance, delimitador);
 
