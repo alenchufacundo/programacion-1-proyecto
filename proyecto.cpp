@@ -65,6 +65,50 @@ ifstream leerArchivo()
 }
 
 // depositar
+void actualizarBalanceEnArchivo(const Usuario &usuario)
+{
+    fstream archivo(NOMBRE_ARCHIVO);
+
+    if (!archivo)
+    {
+        cout << "No se pudo abrir el archivo" << endl;
+        return;
+    }
+
+    string linea;
+    string cbuBuscado = usuario.cbu;
+    char delimitador = ',';
+    string nuevoContenido;
+
+    while (getline(archivo, linea))
+    {
+        stringstream stream(linea);
+        string cbu, nombre, apellido, pin, balanceStr;
+        getline(stream, cbu, delimitador);
+        getline(stream, nombre, delimitador);
+        getline(stream, apellido, delimitador);
+        getline(stream, pin, delimitador);
+        getline(stream, balanceStr, delimitador);
+
+        if (cbu == cbuBuscado)
+        {
+            nuevoContenido += cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + to_string(usuario.balance) + '\n';
+        }
+        else
+        {
+            nuevoContenido += linea + '\n';
+        }
+    }
+
+    archivo.close();
+
+    //LO GOOGLE para hacer esto 
+    archivo.open(NOMBRE_ARCHIVO, ios::out | ios::trunc);
+    archivo << nuevoContenido;
+    archivo.close();
+}
+
+// depositar
 void depositar(Usuario &usuario)
 {
     double deposito;
@@ -74,11 +118,9 @@ void depositar(Usuario &usuario)
     usuario.balance += deposito;
     cout << "Su nuevo balance es: " << usuario.balance << endl;
 
-    //FALTA reescribir el nuevo balance en el archivo.
-    //lee el archivo
-    ifstream archivo = leerArchivo();
-    //hacete este vos y yo sigo con el de retiro y algun otro
+    actualizarBalanceEnArchivo(usuario);
 }
+
 
 void retirar(Usuario &usuario)
 {
@@ -90,21 +132,21 @@ void retirar(Usuario &usuario)
 
     cout << "Su nuevo balance es: " << usuario.balance << endl;
 
-    //FALTA reescribir el nuevo balance en el archivo.
-    //lee archivo
+    // FALTA reescribir el nuevo balance en el archivo.
+    // lee archivo
     ifstream archivo = leerArchivo();
 }
 
 // aun no implementada
-void escribirArchivo(string parametros)
-{
-    leerArchivo();
-    ofstream archivo(NOMBRE_ARCHIVO);
+// void escribirArchivo(string parametros)
+// {
+//     leerArchivo();
+//     ofstream archivo(NOMBRE_ARCHIVO);
 
-    archivo << parametros << endl;
+//     archivo << parametros << endl;
 
-    archivo.close();
-}
+//     archivo.close();
+// }
 
 // devuelve objeto/struct usuario.
 Usuario leerUsuario()
@@ -157,24 +199,31 @@ Usuario leerUsuario()
 int main()
 {
     Usuario nuevoUsuario = leerUsuario();
-    mostrarMenu();
     int opcion;
-    cout << "Ingrese una opcion: ";
-    cin >> opcion;
-    switch (opcion)
+    bool salida = false;
+
+    while (!salida)
     {
-    case 1:
-        cout << "$ " << nuevoUsuario.balance << endl;
-        break;
-    case 2:
-        depositar(nuevoUsuario);
-        break;
-    case 3:
-        retirar(nuevoUsuario);
-        break;
-    default:
-        cout << "Opcion incorrecta" << endl;
-        break;
+
+        mostrarMenu();
+        cout << "Ingrese una opcion: ";
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+            cout << "$ " << nuevoUsuario.balance << endl;
+            break;
+        case 2:
+            depositar(nuevoUsuario);
+            break;
+        case 3:
+            retirar(nuevoUsuario);
+            break;
+        default:
+            cout << "Opcion incorrecta" << endl;
+            break;
+        }
     }
 
     return 0;
