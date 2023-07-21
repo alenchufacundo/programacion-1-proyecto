@@ -77,7 +77,7 @@ void depositar(Usuario &usuario)
     //FALTA reescribir el nuevo balance en el archivo.
     //lee el archivo
     ifstream archivo = leerArchivo();
-        
+    //hacete este vos y yo sigo con el de retiro y algun otro
 }
 
 void retirar(Usuario &usuario)
