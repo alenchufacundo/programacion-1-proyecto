@@ -65,7 +65,7 @@ ifstream leerArchivo()
 }
 
 // depositar
-void actualizarBalanceEnArchivo(const Usuario &usuario)
+void actualizarBalanceEnArchivoDeposito(const Usuario &usuario)
 {
     fstream archivo(NOMBRE_ARCHIVO);
 
@@ -118,35 +118,155 @@ void depositar(Usuario &usuario)
     usuario.balance += deposito;
     cout << "Su nuevo balance es: " << usuario.balance << endl;
 
-    actualizarBalanceEnArchivo(usuario);
+    actualizarBalanceEnArchivoDeposito(usuario);
 }
 
+void actualizarBalanceEnArchivoRetiro(const Usuario &usuario)
+{
+    fstream archivo(NOMBRE_ARCHIVO);
+
+    if (!archivo)
+    {
+        cout << "No se pudo abrir el archivo" << endl;
+        return;
+    }
+
+    string linea;
+    string cbuBuscado = usuario.cbu;
+    char delimitador = ',';
+    string nuevoContenido;
+
+    while (getline(archivo, linea))
+    {
+        stringstream stream(linea);
+        string cbu, nombre, apellido, pin, balanceStr;
+        getline(stream, cbu, delimitador);
+        getline(stream, nombre, delimitador);
+        getline(stream, apellido, delimitador);
+        getline(stream, pin, delimitador);
+        getline(stream, balanceStr, delimitador);
+
+        if (cbu == cbuBuscado)
+        {
+            nuevoContenido += cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + to_string(usuario.balance) + '\n';
+        }
+        else
+        {
+            nuevoContenido += linea + '\n';
+        }
+    }
+
+    archivo.close();
+
+    //LO GOOGLE para hacer esto 
+    archivo.open(NOMBRE_ARCHIVO, ios::out | ios::trunc);
+    archivo << nuevoContenido;
+    archivo.close();
+}
 
 void retirar(Usuario &usuario)
 {
     double retiro;
-    cout << "Ingrese el monto a retirar: ";
+    cout << "Ingrese el monto a depositar: ";
     cin >> retiro;
 
     usuario.balance -= retiro;
-
     cout << "Su nuevo balance es: " << usuario.balance << endl;
 
-    // FALTA reescribir el nuevo balance en el archivo.
-    // lee archivo
-    ifstream archivo = leerArchivo();
+    actualizarBalanceEnArchivoRetiro(usuario);
 }
 
-// aun no implementada
-// void escribirArchivo(string parametros)
-// {
-//     leerArchivo();
-//     ofstream archivo(NOMBRE_ARCHIVO);
+void actualizarBalanceEnArchivoTransferencia(const Usuario &usuario)
+{
+    fstream archivo(NOMBRE_ARCHIVO);
 
-//     archivo << parametros << endl;
+    if (!archivo)
+    {
+        cout << "No se pudo abrir el archivo" << endl;
+        return;
+    }
 
-//     archivo.close();
-// }
+    string linea;
+    string cbuBuscado = usuario.cbu;
+    char delimitador = ',';
+    string nuevoContenido;
+
+    while (getline(archivo, linea))
+    {
+        stringstream stream(linea);
+        string cbu, nombre, apellido, pin, balanceStr;
+        getline(stream, cbu, delimitador);
+        getline(stream, nombre, delimitador);
+        getline(stream, apellido, delimitador);
+        getline(stream, pin, delimitador);
+        getline(stream, balanceStr, delimitador);
+
+        if (cbu == cbuBuscado)
+        {
+            nuevoContenido += cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + to_string(usuario.balance) + '\n';
+        }
+        else
+        {
+            nuevoContenido += linea + '\n';
+        }
+    }
+
+    archivo.close();
+
+    //LO GOOGLE para hacer esto 
+    archivo.open(NOMBRE_ARCHIVO, ios::out | ios::trunc);
+    archivo << nuevoContenido;
+    archivo.close();
+}
+
+void transferir(Usuario &usuario)
+{
+    ifstream archivo = leerArchivo();
+    string linea;
+    string cbuPedido;
+    char delimitador = ',';
+    bool usuarioEncontrado = false;
+    double transferir;
+
+    cout << "Ingrese el cbu de la cuenta que quiera tranferir: ";
+    while (getline(archivo, linea))
+    {
+        stringstream stream(linea);
+        string nombre, apellido, cbu, pin, balance;
+        getline(stream, cbu, delimitador);
+        getline(stream, nombre, delimitador);
+        getline(stream, apellido, delimitador);
+        getline(stream, pin, delimitador);
+        getline(stream, balance, delimitador);
+
+        cbuPedido = pedirCbu();
+
+        if (cbu == cbuPedido)
+        {
+            usuario.nombre = nombre;
+            usuario.apellido = apellido;
+            cout << "Usuario a tranferir" << endl;
+            cout << "Nombre: " << usuario.nombre << endl;
+            cout << "Apellido: " << usuario.apellido << endl;
+
+            usuarioEncontrado = true;
+        }
+    }
+    if(usuarioEncontrado != true)
+    {
+        cout << "No se a encontrado el ususario que busca." << endl;
+    }
+    else
+    {
+    cout << "Ingrese el monto a depositar: ";
+    cin >> transferir;
+
+    usuario.balance -= transferir;
+    cout << "Su nuevo balance es: " << usuario.balance << endl;
+    //FALTA como actualizar el balance del otro usuario al tranferir
+    actualizarBalanceEnArchivoTransferencia(usuario);
+    }
+}
 
 // devuelve objeto/struct usuario.
 Usuario leerUsuario()
@@ -154,6 +274,7 @@ Usuario leerUsuario()
     ifstream archivo = leerArchivo();
     string linea;
     char delimitador = ',';
+    bool usuarioEncontrado = false;
     while (getline(archivo, linea))
     {
         stringstream stream(linea);
@@ -185,11 +306,14 @@ Usuario leerUsuario()
             cout << "Apellido: " << usuario.apellido << endl;
             cout << "CBU: " << usuario.cbu << endl;
 
+            usuarioEncontrado = true;
             return usuario;
         }
     }
-
-    cout << "No se encontro un usuario con ese cbu o el pin es incorrecto" << endl;
+    if(usuarioEncontrado != true)
+    {
+        cout << "No se encontro un usuario con ese cbu o el pin es incorrecto" << endl;
+    }
 
     archivo.close();
     // devuelve vacio
@@ -219,6 +343,9 @@ int main()
             break;
         case 3:
             retirar(nuevoUsuario);
+            break;
+        case 4:
+            transferir(nuevoUsuario);
             break;
         default:
             cout << "Opcion incorrecta" << endl;
