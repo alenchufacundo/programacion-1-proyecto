@@ -347,6 +347,10 @@ int main()
         case 4:
             transferir(nuevoUsuario);
             break;
+        case 5:
+            cout << "Cerrando seccion" << endl;
+            salida = true;
+            break;
         default:
             cout << "Opcion incorrecta" << endl;
             break;
