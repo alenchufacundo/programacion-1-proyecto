@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -14,6 +16,81 @@ struct Usuario
     double balance;
 };
 
+void crear_usuario(Usuario &usuario)
+{
+    srand(time(NULL));
+    int num;
+    ofstream archivo("clientes.csv");
+
+    if(!archivo)
+    {
+        cout << "Error al crear el archivo 'clientes.csv'" << endl;
+    }
+    else
+    {
+        string nombre, apellido, cbu, pin, balance;
+        cout << "Ingrese su nombre: ";
+        getline (cin,nombre);
+        cout << "Ingrese su apellido: ";
+        getline (cin,apellido);
+        cout << "Ingrese un pin de 4 numeros: ";
+        getline (cin, pin);
+        num = 1 + rand() % (10000000000 - 1);
+        if(num < 10)
+        {
+            std::to_string(num);
+            num = '000000000' + num;
+        }
+        else if(num < 100)
+        {
+            std::to_string(num);
+            num = '00000000' + num;
+        }
+        else if(num < 1000)
+        {
+            std::to_string(num);
+            num = '0000000' + num;
+        }
+        else if(num < 10000)
+        {
+            std::to_string(num);
+            num = '000000' + num;
+        }
+        else if(num < 100000)
+        {
+            std::to_string(num);
+            num = '00000' + num;
+        }
+        else if(num < 1000000)
+        {
+            std::to_string(num);
+            num = '0000' + num;
+        }
+        else if(num < 10000000)
+        {
+            std::to_string(num);
+            num = '000' + num;
+        }
+        else if(num < 100000000)
+        {
+            std::to_string(num);
+            num = '00' + num;
+        }
+        else if(num < 1000000000)
+        {
+            std::to_string(num);
+            num = '0' + num;
+        }
+        cbu = num;
+        cout << "Se ha generado su CBU... Este es: " << cbu << endl;
+        cout << "Ingrese el importe que tendra su cuenta: ";
+        getline(cin, balance);
+        archivo << cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + balance;
+        archivo.close();
+
+        cout << "Se a creado su cuenta exitosamente." << endl;
+    }
+}
 // menu
 void mostrarMenu()
 {
