@@ -457,10 +457,34 @@ Usuario leerUsuario()
 
 int main()
 {
-    Usuario nuevoUsuario = leerUsuario();
+    Usuario nuevoUsuario; // = leerUsuario(); Anterior Funcion
     int opcion;
     bool salida = false;
-    
+
+    while(!salida)
+    {
+        cout << "1- Ingresar mi usuario" << endl;
+        cout << "2- Crear un usuario" << endl;
+        cout << "Ingrese una opcion: ";
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+            cout << "Ingresando usuario" << endl;
+            nuevoUsuario = leerUsuario();
+            salida = true;
+            break;
+        case 2:
+            cout << "Creando usuario" << endl;
+            crear_usuario(nuevoUsuario);
+            break;
+        default:
+            cout << "Error, no se ingreso una de las opciones" << endl;
+            break;
+        }
+    }
+
     while (!salida)
     {
 
