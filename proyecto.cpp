@@ -105,10 +105,6 @@ void mostrarMenu()
     cout << "----------------" << endl;
 }
 
-//--------------
-// fijate si podes mirar lo que hice abajo, lo pense de estar forma con la funcion de leerUsuario, no se como lo habias pensado vos.
-//  funciones archivo
-
 string pedirCbu()
 {
     string cbu;
@@ -357,7 +353,6 @@ void transferir(Usuario &usuario)
 
         usuario.balance -= transferir;
         cout << "Su nuevo balance es: " << usuario.balance << endl;
-        // FALTA como actualizar el balance del otro usuario al tranferir
         actualizarBalanceEnArchivoTransferencia(usuario);
     }
 
@@ -465,7 +460,7 @@ int main()
     Usuario nuevoUsuario = leerUsuario();
     int opcion;
     bool salida = false;
-
+    
     while (!salida)
     {
 
