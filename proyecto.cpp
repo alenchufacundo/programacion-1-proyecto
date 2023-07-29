@@ -15,7 +15,7 @@ struct Usuario
     string pin;
     double balance;
 };
-
+// Crear usuario funcional
 void crear_usuario(Usuario &usuario)
 {
     const int N = 10;
