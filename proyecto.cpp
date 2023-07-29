@@ -18,8 +18,11 @@ struct Usuario
 
 void crear_usuario(Usuario &usuario)
 {
+    const int N = 10;
     srand(time(NULL));
-    int num;
+    typedef int tAnum[N];
+    tAnum num;
+    int numX = 0, numZ;
     ofstream archivo("clientes.csv");
 
     if(!archivo)
@@ -28,6 +31,7 @@ void crear_usuario(Usuario &usuario)
     }
     else
     {
+        int cantidadCaracteres;
         string nombre, apellido, cbu, pin, balance;
         cout << "Ingrese su nombre: ";
         getline (cin,nombre);
@@ -35,53 +39,65 @@ void crear_usuario(Usuario &usuario)
         getline (cin,apellido);
         cout << "Ingrese un pin de 4 numeros: ";
         getline (cin, pin);
-        num = 1 + rand() % (10000000000 - 1);
-        if(num < 10)
+
+        for(int i = 0; i < N; i++)
         {
-            std::to_string(num);
-            num = '000000000' + num;
+            numX = 1 + rand() % (10 - 1);
+            num[i] = numX;
         }
-        else if(num < 100)
+
+        for(int i = 8; i > 0 ; i--)
         {
-            std::to_string(num);
-            num = '00000000' + num;
+            if(i == 8)
+            {
+                numX = num[i];
+                numX = numX * 10; 
+            }
+            else if(i == 7)
+            {
+                numX = num[i];
+                numX = numX * 100;
+            }
+            else if(i == 6)
+            {
+                numX = num[i];
+                numX = numX * 1000;
+            }
+            else if(i == 5)
+            {
+                numX = num[i];
+                numX = numX * 10000;
+            }
+            else if(i == 4)
+            {
+                numX = num[i];
+                numX = numX * 100000;
+            }
+            else if(i == 3)
+            {
+                numX = num[i];
+                numX = numX * 1000000;
+            }
+            else if(i == 2)
+            {
+                numX = num[i];
+                numX = numX * 10000000;
+            }
+            else if(i == 1)
+            {
+                numX = num[i];
+                numX = numX * 100000000;
+            }
+            else
+            {
+                numX = num[i];
+                numX = numX * 1000000000;
+            }
+            numX += numX;
         }
-        else if(num < 1000)
-        {
-            std::to_string(num);
-            num = '0000000' + num;
-        }
-        else if(num < 10000)
-        {
-            std::to_string(num);
-            num = '000000' + num;
-        }
-        else if(num < 100000)
-        {
-            std::to_string(num);
-            num = '00000' + num;
-        }
-        else if(num < 1000000)
-        {
-            std::to_string(num);
-            num = '0000' + num;
-        }
-        else if(num < 10000000)
-        {
-            std::to_string(num);
-            num = '000' + num;
-        }
-        else if(num < 100000000)
-        {
-            std::to_string(num);
-            num = '00' + num;
-        }
-        else if(num < 1000000000)
-        {
-            std::to_string(num);
-            num = '0' + num;
-        }
-        cbu = num;
+        numZ = num[9] + numX;
+        
+        cbu = to_string(numZ);
         cout << "Se ha generado su CBU... Este es: " << cbu << endl;
         cout << "Ingrese el importe que tendra su cuenta: ";
         getline(cin, balance);
