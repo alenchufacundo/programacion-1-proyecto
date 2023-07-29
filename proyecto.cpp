@@ -15,98 +15,46 @@ struct Usuario
     string pin;
     double balance;
 };
-// Crear usuario funcional
+
 void crear_usuario(Usuario &usuario)
 {
-    const int N = 10;
     srand(time(NULL));
-    typedef int tAnum[N];
-    tAnum num;
-    int numX = 0, numZ;
-    ofstream archivo("clientes.csv");
-
-    if(!archivo)
+    int num;
+    fstream archivo(NOMBRE_ARCHIVO, ios::app); // esto es para que lo abre en forma de escritura y que el nuevo contenido se agrege al final.
+    if (!archivo)
     {
-        cout << "Error al crear el archivo 'clientes.csv'" << endl;
+        cout << "Error al abrir el archivo 'clientes.csv'" << endl;
     }
     else
     {
-        int cantidadCaracteres;
         string nombre, apellido, cbu, pin, balance;
+        cin.ignore(); 
         cout << "Ingrese su nombre: ";
-        getline (cin,nombre);
+        getline(cin, nombre);
         cout << "Ingrese su apellido: ";
-        getline (cin,apellido);
-        cout << "Ingrese un pin de 4 numeros: ";
-        getline (cin, pin);
+        getline(cin, apellido);
+        cout << "Ingrese un pin de 4 números: ";
+        getline(cin, pin);
+        num = rand() % 10000000000; 
 
-        for(int i = 0; i < N; i++)
-        {
-            numX = 1 + rand() % (10 - 1);
-            num[i] = numX;
-        }
+        //funcion que convierte el numero aleatorio en string.
+        cbu = to_string(num);
 
-        for(int i = 8; i > 0 ; i--)
-        {
-            if(i == 8)
-            {
-                numX = num[i];
-                numX = numX * 10; 
-            }
-            else if(i == 7)
-            {
-                numX = num[i];
-                numX = numX * 100;
-            }
-            else if(i == 6)
-            {
-                numX = num[i];
-                numX = numX * 1000;
-            }
-            else if(i == 5)
-            {
-                numX = num[i];
-                numX = numX * 10000;
-            }
-            else if(i == 4)
-            {
-                numX = num[i];
-                numX = numX * 100000;
-            }
-            else if(i == 3)
-            {
-                numX = num[i];
-                numX = numX * 1000000;
-            }
-            else if(i == 2)
-            {
-                numX = num[i];
-                numX = numX * 10000000;
-            }
-            else if(i == 1)
-            {
-                numX = num[i];
-                numX = numX * 100000000;
-            }
-            else
-            {
-                numX = num[i];
-                numX = numX * 1000000000;
-            }
-            numX += numX;
-        }
-        numZ = num[9] + numX;
-        
-        cbu = to_string(numZ);
-        cout << "Se ha generado su CBU... Este es: " << cbu << endl;
-        cout << "Ingrese el importe que tendra su cuenta: ";
+        //al 10 se le resta la longitud del sbu y se le agregan 0 a la izquierda.
+        cbu = string(10 - cbu.length(), '0') + cbu;
+
+        cout << "Se ha generado su CBU: " << cbu << endl;
+        cout << "Ingrese el importe que tendrá su cuenta: ";
         getline(cin, balance);
-        archivo << cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + balance;
+        archivo << cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + balance << endl; 
+
         archivo.close();
 
-        cout << "Se a creado su cuenta exitosamente." << endl;
+        cout << "Se ha creado su cuenta exitosamente." << endl;
     }
 }
+
+
 // menu
 void mostrarMenu()
 {
