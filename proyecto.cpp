@@ -28,32 +28,31 @@ void crear_usuario(Usuario &usuario)
     else
     {
         string nombre, apellido, cbu, pin, balance;
-        cin.ignore(); 
+        cin.ignore();
         cout << "Ingrese su nombre: ";
         getline(cin, nombre);
+        cout << endl;
         cout << "Ingrese su apellido: ";
         getline(cin, apellido);
         cout << "Ingrese un pin de 4 números: ";
         getline(cin, pin);
-        num = rand() % 10000000000; 
+        num = rand() % 10000000000;
 
-        //funcion que convierte el numero aleatorio en string.
+        // funcion que convierte el numero aleatorio en string.
         cbu = to_string(num);
 
-        //al 10 se le resta la longitud del sbu y se le agregan 0 a la izquierda.
+        // al 10 se le resta la longitud del sbu y se le agregan 0 a la izquierda.
         cbu = string(10 - cbu.length(), '0') + cbu;
-
         cout << "Se ha generado su CBU: " << cbu << endl;
         cout << "Ingrese el importe que tendrá su cuenta: ";
         getline(cin, balance);
-        archivo << cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + balance << endl; 
+        archivo << cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + balance << endl;
 
         archivo.close();
 
         cout << "Se ha creado su cuenta exitosamente." << endl;
     }
 }
-
 
 // menu
 void mostrarMenu()
@@ -129,7 +128,7 @@ void actualizarBalanceEnArchivoDeposito(const Usuario &usuario)
 
         if (cbu == cbuBuscado)
         {
-                                                                                    
+
             nuevoContenido += cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + to_string(usuario.balance) + '\n';
         }
         else
@@ -283,7 +282,7 @@ void transferir(Usuario &usuario)
 
         if ((cbu == cbuPedido) && (cbu != cbuDestino))
         {
-            
+
             usuario.nombre = nombre;
             usuario.apellido = apellido;
             usuario.cbu = cbu;
@@ -374,58 +373,56 @@ Usuario leerUsuario()
     string linea;
     char delimitador = ',';
     bool usuarioEncontrado = false;
+    Usuario usuario;
+
+    string cbuPedido = pedirCbu();
+    string pinPedido = pedirPin();
+
     while (getline(archivo, linea))
     {
         stringstream stream(linea);
-        string nombre, apellido, cbu, pin, balance;
+        string cbu, nombre, apellido, pin, balance;
         getline(stream, cbu, delimitador);
         getline(stream, nombre, delimitador);
         getline(stream, apellido, delimitador);
         getline(stream, pin, delimitador);
         getline(stream, balance, delimitador);
 
-        string cbuPedido = pedirCbu();
-        string pinPedido = pedirPin();
-
-        // se podria hacer una funcion que valide el cbu
-        if ((cbu == cbuPedido) && (pin == pinPedido))
+        if (cbu == cbuPedido && pin == pinPedido)
         {
-            // crea objecto/struct usuario
-            Usuario usuario;
             usuario.nombre = nombre;
             usuario.apellido = apellido;
             usuario.cbu = cbu;
-            // convierte el string balance a double.
             stringstream balanceStream(balance);
             balanceStream >> usuario.balance;
-
-            // mostrar info
             cout << "Bienvenido" << endl;
             cout << "Nombre: " << usuario.nombre << endl;
             cout << "Apellido: " << usuario.apellido << endl;
             cout << "CBU: " << usuario.cbu << endl;
-
             usuarioEncontrado = true;
-            return usuario;
+            break;
         }
     }
-    if (usuarioEncontrado != true)
+
+    if (!usuarioEncontrado)
     {
-        cout << "No se encontro un usuario con ese cbu o el pin es incorrecto" << endl;
+        cout << "No se encontró un usuario con ese CBU o PIN incorrecto" << endl;
+        usuario.cbu = ""; // Indicar que no se encontró el usuario
     }
 
     archivo.close();
-    // devuelve vacio
-    return Usuario{};
+    return usuario;
 }
 
 int main()
 {
-    Usuario nuevoUsuario; // = leerUsuario(); Anterior Funcion
+    Usuario nuevoUsuario;
     int opcion;
     bool salida = false;
 
-    while(!salida)
+    bool usuarioIngresado = false;
+
+    while (!usuarioIngresado)
     {
         cout << "1- Ingresar mi usuario" << endl;
         cout << "2- Crear un usuario" << endl;
@@ -435,10 +432,12 @@ int main()
         switch (opcion)
         {
         case 1:
+        {
             cout << "Ingresando usuario" << endl;
             nuevoUsuario = leerUsuario();
-            salida = true;
+            usuarioIngresado = true;
             break;
+        }
         case 2:
             cout << "Creando usuario" << endl;
             crear_usuario(nuevoUsuario);
