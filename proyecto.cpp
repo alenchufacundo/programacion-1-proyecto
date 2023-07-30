@@ -101,7 +101,7 @@ ifstream leerArchivo()
 }
 
 // depositar
-void actualizarBalanceEnArchivoDeposito(const Usuario &usuario)
+void actualizarBalanceEnArchivoDeposito(Usuario &usuario)
 {
     fstream archivo(NOMBRE_ARCHIVO);
 
@@ -158,7 +158,7 @@ void depositar(Usuario &usuario)
     actualizarBalanceEnArchivoDeposito(usuario);
 }
 
-void actualizarBalanceEnArchivoRetiro(const Usuario &usuario)
+void actualizarBalanceEnArchivoRetiro(Usuario &usuario)
 {
     fstream archivo(NOMBRE_ARCHIVO);
 
@@ -213,7 +213,7 @@ void retirar(Usuario &usuario)
     actualizarBalanceEnArchivoRetiro(usuario);
 }
 
-void actualizarBalanceEnArchivoTransferencia(const Usuario &usuario)
+void actualizarBalanceEnArchivoTransferencia(Usuario &usuario)
 {
     fstream archivo(NOMBRE_ARCHIVO);
 
