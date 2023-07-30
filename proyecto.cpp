@@ -407,7 +407,7 @@ Usuario leerUsuario()
     if (!usuarioEncontrado)
     {
         cout << "No se encontró un usuario con ese CBU o PIN incorrecto" << endl;
-        usuario.cbu = ""; // Indicar que no se encontró el usuario
+        usuario.cbu = "";
     }
 
     archivo.close();
@@ -419,7 +419,6 @@ int main()
     Usuario nuevoUsuario;
     int opcion;
     bool salida = false;
-
     bool usuarioIngresado = false;
 
     while (!usuarioIngresado)
