@@ -146,7 +146,7 @@ void crear_usuario(Usuario &usuario)
         // funcion que convierte el numero aleatorio en string.
         cbu = to_string(num);
 
-        // al 10 se le resta la longitud del sbu y se le agregan 0 a la izquierda.
+        // al 10 se le resta la longitud del cbu y se le agregan 0 a la izquierda.
         cbu = string(10 - cbu.length(), '0') + cbu;
         cout << "Se ha generado su CBU: " << cbu << endl;
         do{ 
@@ -462,7 +462,7 @@ void transferir(Usuario &usuario)
     bool cbuDestinoEncontrado = false;
     double transferir;
 
-    cout << "Ingrese el CBU de la cuenta que quiera transferir: ";
+    cout << "Ingrese el CBU de la cuenta de destino: ";
     cin >> cbuDestino;
 
     cbuPedido = pedirCbu();
@@ -573,7 +573,7 @@ void transferir(Usuario &usuario)
             cout << "Apellido: " << destinatario.apellido << endl;
 
             destinatario.balance += transferir;
-            cout << "Nuevo balance del destinatario: " << destinatario.balance << endl;
+            cout << "Nuevo balance del destinatario: " << "****" << endl;
 
             usuarioEncontrado = true;
             break;
