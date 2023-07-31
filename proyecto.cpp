@@ -29,26 +29,129 @@ void crear_usuario(Usuario &usuario)
     {
         int contador, contNumCorrectos = 0, contErrores = 0;
         char cambio;
-        bool numCorrecto;
+        bool numCorrecto, pinCorrecto = false;
         string nombre, apellido, cbu, pin, balance;
         cin.ignore();
-        cout << "Ingrese su nombre:";
+        cout << "Ingrese su nombre: ";
         getline(cin, nombre);
         "\n";
         cout << "Ingrese su apellido: ";
         getline(cin, apellido);
-        cout << "Ingrese un pin de 4 números: ";
-        getline(cin, pin);
-        num = rand() % 10000000000;
+        do{
+            contErrores = 0;
+            numCorrecto = false;
+            cout << "Ingrese un pin de 4 numeros: ";
+            cin >> pin;
+            contador = pin.length();
+            if(pin.length() == 4)
+            {
+                for(int i = 0; i < contador; i++)
+                {
+                    numCorrecto = false;
+                    for(int j = 0; j < 10; j++)
+                    {
+                        switch (j)
+                        {
+                        case 0:
+                            if(pin[i] == '0'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 1:
+                            if(pin[i] == '1'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 2:
+                            if(pin[i] == '2'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 3:
+                            if(pin[i] == '3'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 4:
+                            if(pin[i] == '4'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 5:
+                            if(pin[i] == '5'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 6:
+                            if(pin[i] == '6'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 7:
+                            if(pin[i] == '7'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 8:
+                            if(pin[i] == '8'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        case 9:
+                            if(pin[i] == '9'){
+                                contNumCorrectos += 1;
+                                numCorrecto = true;
+                            }
+                            break;
+                        }
+                    }
+                    if(numCorrecto == false)
+                    {
+                        cout << i + 1 << ". ERROR: Caracter invalido" << endl;
+                        contErrores += 1;
+                    }
+                }
+                if(contErrores == 0)
+                {
+                    cout << "Verificacion de pin: correcto" << endl;
+                }
+                else
+                {
+                    cout << "Verificacion de pin: incorrecto" << endl;
+                    cout << "Cantidad de Errores: " << contErrores << endl;
+                    numCorrecto = false;
+                }
+            }
+            else
+            {
+                cout << "Por favor, ingresar un numero de 4 cifras" << endl;
+            }
 
+            if((pin.length() == 4) && (numCorrecto == true))
+            {
+                pinCorrecto = true;
+            }
+        } while(pinCorrecto != true);
+
+        num = rand() % 10000000000;
         // funcion que convierte el numero aleatorio en string.
         cbu = to_string(num);
 
         // al 10 se le resta la longitud del sbu y se le agregan 0 a la izquierda.
         cbu = string(10 - cbu.length(), '0') + cbu;
         cout << "Se ha generado su CBU: " << cbu << endl;
-        do{            
-            cout << "Ingrese el importe que tendrá su cuenta: ";
+        do{ 
+            contErrores = 0;           
+            cout << "Ingrese el importe que tendra su cuenta: ";
             cin >> balance;
             contador = balance.length();
             for(int i = 0; i < contador; i++)
@@ -122,17 +225,17 @@ void crear_usuario(Usuario &usuario)
                 }
                 if(numCorrecto == false)
                 {
-                    cout << "ERROR: Numero incorrecto" << endl;
+                    cout << i + 1 << ". ERROR: Caracter invalido" << endl;
                     contErrores += 1;
                 }
             }
             if(contErrores == 0)
             {
-                cout << "Verificacion de balance correcto" << endl;
+                cout << "Verificacion de balance: correcto" << endl;
             }
             else
             {
-                cout << "Verificacion de balance incorrecto" << endl;
+                cout << "Verificacion de balance: incorrecto" << endl;
                 cout << "Cantidad de Errores: " << contErrores << endl;
                 numCorrecto = false;
             }
