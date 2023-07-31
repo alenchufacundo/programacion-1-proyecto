@@ -268,6 +268,9 @@ void transferir(Usuario &usuario)
 
     cout << "Ingrese el cbu de la cuenta que quiera tranferir: ";
     cin >> cbuDestino;
+
+    cbuPedido = pedirCbu();
+    
     while (getline(archivo, linea))
     {
         stringstream stream(linea);
@@ -277,8 +280,6 @@ void transferir(Usuario &usuario)
         getline(stream, apellido, delimitador);
         getline(stream, pin, delimitador);
         getline(stream, balance, delimitador);
-
-        cbuPedido = pedirCbu();
 
         if ((cbu == cbuPedido) && (cbu != cbuDestino))
         {
