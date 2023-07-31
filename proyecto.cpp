@@ -29,9 +29,9 @@ void crear_usuario(Usuario &usuario)
     {
         string nombre, apellido, cbu, pin, balance;
         cin.ignore();
-        cout << "Ingrese su nombre: ";
+        cout << "Ingrese su nombre:";
         getline(cin, nombre);
-        cout << endl;
+        "\n";
         cout << "Ingrese su apellido: ";
         getline(cin, apellido);
         cout << "Ingrese un pin de 4 números: ";
@@ -264,13 +264,41 @@ void transferir(Usuario &usuario)
     string cbuDestino;
     char delimitador = ',';
     bool usuarioEncontrado = false;
+    bool cbuDestinoEncontrado = false;
     double transferir;
 
-    cout << "Ingrese el cbu de la cuenta que quiera tranferir: ";
+    cout << "Ingrese el CBU de la cuenta que quiera transferir: ";
     cin >> cbuDestino;
 
     cbuPedido = pedirCbu();
-    
+
+    // Verificar si el CBU destino existe
+    while (getline(archivo, linea))
+    {
+        stringstream stream(linea);
+        string cbu, nombre, apellido, pin, balance;
+        getline(stream, cbu, delimitador);
+        getline(stream, nombre, delimitador);
+        getline(stream, apellido, delimitador);
+        getline(stream, pin, delimitador);
+        getline(stream, balance, delimitador);
+
+        if (cbu == cbuDestino)
+        {
+            cbuDestinoEncontrado = true;
+            break;
+        }
+    }
+    archivo.close();
+
+    if (!cbuDestinoEncontrado)
+    {
+        cout << "El CBU destino no se encuentra en el archivo" << endl;
+        return;
+    }
+
+    archivo.open(NOMBRE_ARCHIVO);
+
     while (getline(archivo, linea))
     {
         stringstream stream(linea);
@@ -283,7 +311,6 @@ void transferir(Usuario &usuario)
 
         if ((cbu == cbuPedido) && (cbu != cbuDestino))
         {
-
             usuario.nombre = nombre;
             usuario.apellido = apellido;
             usuario.cbu = cbu;
@@ -300,18 +327,20 @@ void transferir(Usuario &usuario)
 
     archivo.close();
 
-    if (usuarioEncontrado != true)
+    if (!usuarioEncontrado)
     {
-        cout << "No se a encontrado el usuario que busca." << endl;
+        cout << "No se encontró el usuario que busca." << endl;
+        return;
     }
     else
     {
+        cout << "Su balance es: " << usuario.balance << endl;
         cout << "Ingrese el monto a transferir: ";
         cin >> transferir;
 
         if (transferir > usuario.balance)
         {
-            cout << "No tiene suficiente balance en la cuenta para realizar la trasnferencia" << endl;
+            cout << "No tiene suficiente balance en la cuenta para realizar la transferencia" << endl;
             return;
         }
 
@@ -320,7 +349,7 @@ void transferir(Usuario &usuario)
         actualizarBalanceEnArchivoTransferencia(usuario);
     }
 
-    // Buscar al destinatario de la transferencia
+    // Continuar con la transferencia
     archivo.open(NOMBRE_ARCHIVO);
     Usuario destinatario;
     usuarioEncontrado = false;
@@ -408,11 +437,80 @@ Usuario leerUsuario()
     if (!usuarioEncontrado)
     {
         cout << "No se encontró un usuario con ese CBU o PIN incorrecto" << endl;
-        usuario.cbu = "";
+        cout << "Vuelva a iniciarlo nuevamente" << endl;
+        exit(EXIT_FAILURE);
     }
 
     archivo.close();
     return usuario;
+}
+
+int comprobarOpcion()
+{
+    string datoEntrada;
+    while (true)
+    {
+        cout << "Ingrese una opcion: ";
+        cin >> datoEntrada;
+
+        bool esEntero = true;
+        int opcion = 0;
+
+        // foreach bucle
+        for (char c : datoEntrada)
+        {
+            if (c >= '0' && c <= '9')
+            {
+                opcion = opcion * 10 + (c - '0');
+            }
+            else
+            {
+                esEntero = false;
+                break;
+            }
+        }
+
+        if (esEntero && opcion >= 1 && opcion <= 2)
+        {
+            return opcion;
+        }
+        cout << "Error: La opcion ingresada no es una opcion valida." << endl;
+
+    }
+}
+
+int comprobarOpcionSubMenu()
+{
+    string datoEntrada;
+    while (true)
+    {
+        cout << "Ingrese una opcion: ";
+        cin >> datoEntrada;
+
+        bool esEntero = true;
+        int opcion = 0;
+
+        // foreach bucle
+        for (char c : datoEntrada)
+        {
+            if (c >= '0' && c <= '9')
+            {
+                opcion = opcion * 10 + (c - '0');
+            }
+            else
+            {
+                esEntero = false;
+                break;
+            }
+        }
+
+        if (esEntero && opcion >= 1 && opcion <= 5)
+        {
+            return opcion;
+        }
+        cout << "Error: La opcion ingresada no es una opcion valida." << endl;
+
+    }
 }
 
 int main()
@@ -424,22 +522,23 @@ int main()
 
     while (!usuarioIngresado)
     {
+        cout << "Bienvenido al cajero virtual automatico" << endl;
+        cout << "Opciones" << endl;
         cout << "1- Ingresar mi usuario" << endl;
         cout << "2- Crear un usuario" << endl;
-        cout << "Ingrese una opcion: ";
-        cin >> opcion;
+        opcion = comprobarOpcion();
 
         switch (opcion)
         {
         case 1:
         {
-            cout << "Ingresando usuario" << endl;
+            cout << "Ingresando usuario ..." << endl;
             nuevoUsuario = leerUsuario();
             usuarioIngresado = true;
             break;
         }
         case 2:
-            cout << "Creando usuario" << endl;
+            cout << "Creando usuario ..." << endl;
             crear_usuario(nuevoUsuario);
             break;
         default:
@@ -450,10 +549,8 @@ int main()
 
     while (!salida)
     {
-
         mostrarMenu();
-        cout << "Ingrese una opcion: ";
-        cin >> opcion;
+        opcion = comprobarOpcionSubMenu();
 
         switch (opcion)
         {
