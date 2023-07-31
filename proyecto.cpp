@@ -16,6 +16,235 @@ struct Usuario
     double balance;
 };
 
+string comprobarBalance()
+{
+    string balance;
+    int contador, contErrores, contNumCorrectos = 0;
+    bool numCorrecto = true;
+
+    do
+    {
+        cout << "Ingrese el importe: ";
+        cin >> balance;
+        contErrores = 0;
+        contador = balance.length();
+        for (int i = 0; i < contador; i++)
+        {
+            numCorrecto = false;
+            for (int j = 0; j < 10; j++)
+            {
+                switch (j)
+                {
+                case 0:
+                    if (balance[i] == '0')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 1:
+                    if (balance[i] == '1')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 2:
+                    if (balance[i] == '2')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 3:
+                    if (balance[i] == '3')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 4:
+                    if (balance[i] == '4')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 5:
+                    if (balance[i] == '5')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 6:
+                    if (balance[i] == '6')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 7:
+                    if (balance[i] == '7')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 8:
+                    if (balance[i] == '8')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 9:
+                    if (balance[i] == '9')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                }
+            }
+            if (numCorrecto == false)
+            {
+                cout << i + 1 << ". ERROR: Caracter invalido" << endl;
+                contErrores += 1;
+            }
+        }
+        if (contErrores == 0)
+        {
+            cout << "Verificacion de balance: correcto" << endl;
+            return balance;
+        }
+        else
+        {
+            cout << "Verificacion de balance: incorrecto" << endl;
+            cout << "Cantidad de Errores: " << contErrores << endl;
+            numCorrecto = false;
+        }
+    } while (numCorrecto == false);
+
+    return "0.00";
+}
+
+double comprobarBalanceOperaciones()
+{
+    string balance;
+    int contador, contErrores, contNumCorrectos = 0;
+    bool numCorrecto = true;
+
+    do
+    {
+        cout << "Ingrese el importe: ";
+        cin >> balance;
+        contErrores = 0;
+        contador = balance.length();
+        for (int i = 0; i < contador; i++)
+        {
+            numCorrecto = false;
+            for (int j = 0; j < 10; j++)
+            {
+                switch (j)
+                {
+                case 0:
+                    if (balance[i] == '0')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 1:
+                    if (balance[i] == '1')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 2:
+                    if (balance[i] == '2')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 3:
+                    if (balance[i] == '3')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 4:
+                    if (balance[i] == '4')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 5:
+                    if (balance[i] == '5')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 6:
+                    if (balance[i] == '6')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 7:
+                    if (balance[i] == '7')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 8:
+                    if (balance[i] == '8')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                case 9:
+                    if (balance[i] == '9')
+                    {
+                        contNumCorrectos += 1;
+                        numCorrecto = true;
+                    }
+                    break;
+                }
+            }
+            if (numCorrecto == false)
+            {
+                cout << i + 1 << ". ERROR: Caracter invalido" << endl;
+                contErrores += 1;
+            }
+        }
+        if (contErrores == 0)
+        {
+            cout << "Verificacion de balance: correcto" << endl;
+            //convierte string a double
+            return stod(balance);
+        }
+        else
+        {
+            cout << "Verificacion de balance: incorrecto" << endl;
+            cout << "Cantidad de Errores: " << contErrores << endl;
+            numCorrecto = false;
+        }
+    } while (numCorrecto == false);
+
+    return 0.0;
+}
+
+
+
 void crear_usuario(Usuario &usuario)
 {
     srand(time(NULL));
@@ -37,90 +266,101 @@ void crear_usuario(Usuario &usuario)
         "\n";
         cout << "Ingrese su apellido: ";
         getline(cin, apellido);
-        do{
+        do
+        {
             contErrores = 0;
             numCorrecto = false;
             cout << "Ingrese un pin de 4 numeros: ";
             cin >> pin;
             contador = pin.length();
-            if(pin.length() == 4)
+            if (pin.length() == 4)
             {
-                for(int i = 0; i < contador; i++)
+                for (int i = 0; i < contador; i++)
                 {
                     numCorrecto = false;
-                    for(int j = 0; j < 10; j++)
+                    for (int j = 0; j < 10; j++)
                     {
                         switch (j)
                         {
                         case 0:
-                            if(pin[i] == '0'){
+                            if (pin[i] == '0')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 1:
-                            if(pin[i] == '1'){
+                            if (pin[i] == '1')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 2:
-                            if(pin[i] == '2'){
+                            if (pin[i] == '2')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 3:
-                            if(pin[i] == '3'){
+                            if (pin[i] == '3')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 4:
-                            if(pin[i] == '4'){
+                            if (pin[i] == '4')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 5:
-                            if(pin[i] == '5'){
+                            if (pin[i] == '5')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 6:
-                            if(pin[i] == '6'){
+                            if (pin[i] == '6')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 7:
-                            if(pin[i] == '7'){
+                            if (pin[i] == '7')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 8:
-                            if(pin[i] == '8'){
+                            if (pin[i] == '8')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         case 9:
-                            if(pin[i] == '9'){
+                            if (pin[i] == '9')
+                            {
                                 contNumCorrectos += 1;
                                 numCorrecto = true;
                             }
                             break;
                         }
                     }
-                    if(numCorrecto == false)
+                    if (numCorrecto == false)
                     {
                         cout << i + 1 << ". ERROR: Caracter invalido" << endl;
                         contErrores += 1;
                     }
                 }
-                if(contErrores == 0)
+                if (contErrores == 0)
                 {
                     cout << "Verificacion de pin: correcto" << endl;
                 }
@@ -136,11 +376,11 @@ void crear_usuario(Usuario &usuario)
                 cout << "Por favor, ingresar un numero de 4 cifras" << endl;
             }
 
-            if((pin.length() == 4) && (numCorrecto == true))
+            if ((pin.length() == 4) && (numCorrecto == true))
             {
                 pinCorrecto = true;
             }
-        } while(pinCorrecto != true);
+        } while (pinCorrecto != true);
 
         num = rand() % 10000000000;
         // funcion que convierte el numero aleatorio en string.
@@ -149,97 +389,8 @@ void crear_usuario(Usuario &usuario)
         // al 10 se le resta la longitud del cbu y se le agregan 0 a la izquierda.
         cbu = string(10 - cbu.length(), '0') + cbu;
         cout << "Se ha generado su CBU: " << cbu << endl;
-        do{ 
-            contErrores = 0;           
-            cout << "Ingrese el importe que tendra su cuenta: ";
-            cin >> balance;
-            contador = balance.length();
-            for(int i = 0; i < contador; i++)
-            {
-                numCorrecto = false;
-                for(int j = 0; j < 10; j++)
-                {
-                    switch (j)
-                    {
-                    case 0:
-                        if(balance[i] == '0'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 1:
-                        if(balance[i] == '1'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 2:
-                        if(balance[i] == '2'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 3:
-                        if(balance[i] == '3'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 4:
-                        if(balance[i] == '4'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 5:
-                        if(balance[i] == '5'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 6:
-                        if(balance[i] == '6'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 7:
-                        if(balance[i] == '7'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 8:
-                        if(balance[i] == '8'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    case 9:
-                        if(balance[i] == '9'){
-                            contNumCorrectos += 1;
-                            numCorrecto = true;
-                        }
-                        break;
-                    }
-                }
-                if(numCorrecto == false)
-                {
-                    cout << i + 1 << ". ERROR: Caracter invalido" << endl;
-                    contErrores += 1;
-                }
-            }
-            if(contErrores == 0)
-            {
-                cout << "Verificacion de balance: correcto" << endl;
-            }
-            else
-            {
-                cout << "Verificacion de balance: incorrecto" << endl;
-                cout << "Cantidad de Errores: " << contErrores << endl;
-                numCorrecto = false;
-            }
-        } while(numCorrecto == false);
+
+        balance = comprobarBalance();
 
         archivo << cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + balance << endl;
 
@@ -266,7 +417,7 @@ void mostrarMenu()
 string pedirCbu()
 {
     string cbu;
-    cout << "Ingrese su cbu: ";
+    cout << "Ingrese su CBU: ";
     cin >> cbu;
 
     return cbu;
@@ -275,7 +426,7 @@ string pedirCbu()
 string pedirPin()
 {
     string pin;
-    cout << "Ingrese su pin: ";
+    cout << "Ingrese su PIN: ";
     cin >> pin;
 
     return pin;
@@ -344,8 +495,7 @@ void actualizarBalanceEnArchivoDeposito(Usuario &usuario)
 void depositar(Usuario &usuario)
 {
     double deposito;
-    cout << "Ingrese el monto a depositar: ";
-    cin >> deposito;
+    deposito = comprobarBalanceOperaciones();
 
     usuario.balance += deposito;
     cout << "Su nuevo balance es: " << usuario.balance << endl;
@@ -399,8 +549,7 @@ void actualizarBalanceEnArchivoRetiro(Usuario &usuario)
 void retirar(Usuario &usuario)
 {
     double retiro;
-    cout << "Ingrese el monto a retirar: ";
-    cin >> retiro;
+    retiro = comprobarBalanceOperaciones();
 
     usuario.balance -= retiro;
     cout << "Su nuevo balance es: " << usuario.balance << endl;
@@ -530,8 +679,7 @@ void transferir(Usuario &usuario)
     else
     {
         cout << "Su balance es: " << usuario.balance << endl;
-        cout << "Ingrese el monto a transferir: ";
-        cin >> transferir;
+        transferir = comprobarBalanceOperaciones();
 
         if (transferir > usuario.balance)
         {
@@ -573,7 +721,8 @@ void transferir(Usuario &usuario)
             cout << "Apellido: " << destinatario.apellido << endl;
 
             destinatario.balance += transferir;
-            cout << "Nuevo balance del destinatario: " << "****" << endl;
+            cout << "Nuevo balance del destinatario: "
+                 << "****" << endl;
 
             usuarioEncontrado = true;
             break;
@@ -670,7 +819,6 @@ int comprobarOpcion()
             return opcion;
         }
         cout << "Error: La opcion ingresada no es una opcion valida." << endl;
-
     }
 }
 
@@ -704,7 +852,6 @@ int comprobarOpcionSubMenu()
             return opcion;
         }
         cout << "Error: La opcion ingresada no es una opcion valida." << endl;
-
     }
 }
 
