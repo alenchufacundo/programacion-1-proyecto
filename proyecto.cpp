@@ -305,7 +305,7 @@ void transferir(Usuario &usuario)
     }
     else
     {
-        cout << "Ingrese el monto a depositar: ";
+        cout << "Ingrese el monto a transferir: ";
         cin >> transferir;
 
         if (transferir > usuario.balance)
