@@ -27,6 +27,9 @@ void crear_usuario(Usuario &usuario)
     }
     else
     {
+        int contador, contNumCorrectos = 0, contErrores = 0;
+        char cambio;
+        bool numCorrecto;
         string nombre, apellido, cbu, pin, balance;
         cin.ignore();
         cout << "Ingrese su nombre:";
@@ -44,8 +47,97 @@ void crear_usuario(Usuario &usuario)
         // al 10 se le resta la longitud del sbu y se le agregan 0 a la izquierda.
         cbu = string(10 - cbu.length(), '0') + cbu;
         cout << "Se ha generado su CBU: " << cbu << endl;
-        cout << "Ingrese el importe que tendrá su cuenta: ";
-        getline(cin, balance);
+        do{            
+            cout << "Ingrese el importe que tendrá su cuenta: ";
+            cin >> balance;
+            contador = balance.length();
+            for(int i = 0; i < contador; i++)
+            {
+                numCorrecto = false;
+                for(int j = 0; j < 10; j++)
+                {
+                    switch (j)
+                    {
+                    case 0:
+                        if(balance[i] == '0'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 1:
+                        if(balance[i] == '1'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 2:
+                        if(balance[i] == '2'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 3:
+                        if(balance[i] == '3'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 4:
+                        if(balance[i] == '4'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 5:
+                        if(balance[i] == '5'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 6:
+                        if(balance[i] == '6'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 7:
+                        if(balance[i] == '7'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 8:
+                        if(balance[i] == '8'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    case 9:
+                        if(balance[i] == '9'){
+                            contNumCorrectos += 1;
+                            numCorrecto = true;
+                        }
+                        break;
+                    }
+                }
+                if(numCorrecto == false)
+                {
+                    cout << "ERROR: Numero incorrecto" << endl;
+                    contErrores += 1;
+                }
+            }
+            if(contErrores == 0)
+            {
+                cout << "Verificacion de balance correcto" << endl;
+            }
+            else
+            {
+                cout << "Verificacion de balance incorrecto" << endl;
+                cout << "Cantidad de Errores: " << contErrores << endl;
+                numCorrecto = false;
+            }
+        } while(numCorrecto == false);
+
         archivo << cbu + ',' + nombre + ',' + apellido + ',' + pin + ',' + balance << endl;
 
         archivo.close();
