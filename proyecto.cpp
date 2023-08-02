@@ -243,6 +243,71 @@ double comprobarBalanceOperaciones()
     return 0.0;
 }
 
+int comprobarOpcion()
+{
+    string datoEntrada;
+    while (true)
+    {
+        cout << "Ingrese una opcion: ";
+        cin >> datoEntrada;
+
+        bool esEntero = true;
+        int opcion = 0;
+
+        // foreach bucle
+        for (char c : datoEntrada)
+        {
+            if (c >= '0' && c <= '9')
+            {
+                opcion = opcion * 10 + (c - '0');
+            }
+            else
+            {
+                esEntero = false;
+                break;
+            }
+        }
+
+        if (esEntero && opcion >= 1 && opcion <= 2)
+        {
+            return opcion;
+        }
+        cout << "Error: La opcion ingresada no es una opcion valida." << endl;
+    }
+}
+
+int comprobarOpcionSubMenu()
+{
+    string datoEntrada;
+    while (true)
+    {
+        cout << "Ingrese una opcion: ";
+        cin >> datoEntrada;
+
+        bool esEntero = true;
+        int opcion = 0;
+
+        // foreach bucle
+        for (char c : datoEntrada)
+        {
+            if (c >= '0' && c <= '9')
+            {
+                opcion = opcion * 10 + (c - '0');
+            }
+            else
+            {
+                esEntero = false;
+                break;
+            }
+        }
+
+        if (esEntero && opcion >= 1 && opcion <= 5)
+        {
+            return opcion;
+        }
+        cout << "Error: La opcion ingresada no es una opcion valida." << endl;
+    }
+}
 
 
 void crear_usuario(Usuario &usuario)
@@ -485,7 +550,6 @@ void actualizarBalanceEnArchivoDeposito(Usuario &usuario)
 
     archivo.close();
 
-    // LO GOOGLE para hacer esto
     archivo.open(NOMBRE_ARCHIVO, ios::out | ios::trunc);
     archivo << nuevoContenido;
     archivo.close();
@@ -540,7 +604,6 @@ void actualizarBalanceEnArchivoRetiro(Usuario &usuario)
 
     archivo.close();
 
-    // LO GOOGLE para hacer esto
     archivo.open(NOMBRE_ARCHIVO, ios::out | ios::trunc);
     archivo << nuevoContenido;
     archivo.close();
@@ -789,71 +852,6 @@ Usuario leerUsuario()
     return usuario;
 }
 
-int comprobarOpcion()
-{
-    string datoEntrada;
-    while (true)
-    {
-        cout << "Ingrese una opcion: ";
-        cin >> datoEntrada;
-
-        bool esEntero = true;
-        int opcion = 0;
-
-        // foreach bucle
-        for (char c : datoEntrada)
-        {
-            if (c >= '0' && c <= '9')
-            {
-                opcion = opcion * 10 + (c - '0');
-            }
-            else
-            {
-                esEntero = false;
-                break;
-            }
-        }
-
-        if (esEntero && opcion >= 1 && opcion <= 2)
-        {
-            return opcion;
-        }
-        cout << "Error: La opcion ingresada no es una opcion valida." << endl;
-    }
-}
-
-int comprobarOpcionSubMenu()
-{
-    string datoEntrada;
-    while (true)
-    {
-        cout << "Ingrese una opcion: ";
-        cin >> datoEntrada;
-
-        bool esEntero = true;
-        int opcion = 0;
-
-        // foreach bucle
-        for (char c : datoEntrada)
-        {
-            if (c >= '0' && c <= '9')
-            {
-                opcion = opcion * 10 + (c - '0');
-            }
-            else
-            {
-                esEntero = false;
-                break;
-            }
-        }
-
-        if (esEntero && opcion >= 1 && opcion <= 5)
-        {
-            return opcion;
-        }
-        cout << "Error: La opcion ingresada no es una opcion valida." << endl;
-    }
-}
 
 int main()
 {
